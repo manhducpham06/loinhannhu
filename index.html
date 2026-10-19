@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thư gửi 2K9 & Thí Sinh Tự Do</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#5a1f3d;--pink:#ff6fa5;--cream:#fff6ec;--sky:#bfe6ff;--sun:#ffd36e;--mut:#8a4a67;box-sizing:border-box}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{background:linear-gradient(180deg,#ffd9ec 0%,#ffeef6 55%,#fff6ec 100%);color:var(--ink);font-family:'Baloo 2','Be Vietnam Pro',system-ui,sans-serif;font-weight:500}
+canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+.cl{position:fixed;z-index:0;background:#fff;border-radius:99px;opacity:.9;animation:drift linear infinite;box-shadow:0 5px 0 #ffd0e4}
+.cl:before,.cl:after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cl:before{width:50%;height:160%;left:15%;top:-70%}.cl:after{width:38%;height:130%;right:14%;top:-45%}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.deck{position:fixed;inset:0;z-index:2;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.s{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6vh 6vw 12vh;opacity:0;visibility:hidden;transform:translate3d(var(--tx,14vw),0,0) scale(.92);filter:blur(10px);will-change:transform,opacity,filter;transition:opacity .85s ease,transform 1s cubic-bezier(.22,1,.36,1),filter .85s ease,visibility 0s linear 1s}
+.s.on{opacity:1;visibility:visible;transform:none;filter:blur(0);transition:opacity .85s ease .12s,transform 1s cubic-bezier(.22,1,.36,1) .05s,filter .85s ease .12s,visibility 0s}
+.s.off{opacity:0;visibility:visible;transform:translate3d(var(--ox,-14vw),0,0) scale(.92);filter:blur(10px);transition:opacity .6s ease,transform .8s cubic-bezier(.65,0,.35,1),filter .6s ease,visibility 0s}
+#wipe{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 55%,#fff 0%,#ffd0e6 45%,#ff9cc8 100%)}
+h1,h2{font-weight:800;line-height:1.05;color:#fff;-webkit-text-stroke:9px var(--ink);paint-order:stroke fill;text-shadow:0 7px 0 var(--ink);letter-spacing:.01em}
+h1{font-size:clamp(2.6rem,9vw,6rem);color:var(--pink)}
+h2{font-size:clamp(2rem,6vw,3.8rem);margin-bottom:3vh}
+h2 em{font-style:normal;color:var(--pink)}
+p.sub{font-size:clamp(1.05rem,2.3vw,1.5rem);color:var(--mut);max-width:42ch;line-height:1.5;margin-top:2.5vh;font-weight:700}
+.rv{opacity:0;transform:translateY(28px) scale(.94);filter:blur(6px)}
+.on .rv{animation:pop .9s cubic-bezier(.22,1,.36,1) forwards;animation-delay:calc(var(--i,0)*.12s + .4s)}
+@keyframes pop{to{opacity:1;transform:none;filter:blur(0)}}
+svg.i{display:block;overflow:visible}
+.chars{display:flex;align-items:flex-end;justify-content:center;gap:2vw}
+.chars svg{width:clamp(90px,17vw,170px);animation:bob 2.2s ease-in-out infinite}
+.chars svg:last-child{animation-delay:-1.1s}
+.chars .mid{width:clamp(60px,11vw,110px);animation:beat 1.1s infinite;margin-bottom:4vh}
+@keyframes bob{50%{transform:translateY(-14px) rotate(3deg)}}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+.blink{transform-box:fill-box;transform-origin:center;animation:bl 4s infinite}
+@keyframes bl{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.bubble{background:#fff;border:5px solid var(--ink);border-radius:36px;box-shadow:8px 8px 0 var(--ink);padding:4vh 4vw;max-width:min(720px,100%);position:relative;font-size:clamp(1.4rem,3.8vw,2.4rem);font-weight:800;line-height:1.3}
+.bubble:after{content:"";position:absolute;bottom:-30px;left:18%;width:34px;height:34px;background:#fff;border-right:5px solid var(--ink);border-bottom:5px solid var(--ink);transform:rotate(45deg) skew(10deg,10deg);border-radius:0 0 10px 0}
+.bubble b{color:var(--pink)}
+.bubble.l{font-size:clamp(1.05rem,2.5vw,1.55rem);font-weight:700;line-height:1.5;text-align:left;max-height:62vh;overflow:auto}
+.bubble.l .sg{display:block;text-align:right;margin-top:1.2vh;font-weight:800;color:var(--pink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2.2vw;width:min(1020px,100%)}
+.card{background:#fff;border:5px solid var(--ink);border-radius:30px;box-shadow:7px 7px 0 var(--ink);padding:2.4vh 1.4vw 3vh;transition:transform .3s cubic-bezier(.3,1.8,.5,1),box-shadow .3s}
+.card:nth-child(odd){--r:-2deg}.card:nth-child(even){--r:2deg}
+.card:hover{transform:translateY(-10px) rotate(var(--r)) scale(1.05);box-shadow:10px 14px 0 var(--ink)}
+.card svg{width:78px;height:78px;margin:0 auto 1vh;animation:wig 3s ease-in-out infinite}
+@keyframes wig{50%{transform:rotate(-8deg) scale(1.08)}}
+.card h3{font-size:1.5rem;font-weight:800}.card span{font-size:1rem;color:var(--mut);line-height:1.35;display:block;font-weight:700}
+.tl{display:flex;gap:2vw;width:min(1020px,100%);flex-wrap:wrap;justify-content:center}
+.tl div{flex:1;min-width:150px;background:#fff;border:5px solid var(--ink);border-radius:26px;box-shadow:6px 6px 0 var(--ink);padding:2vh 1vw 2.4vh;position:relative}
+.tl div svg{width:52px;margin:-5vh auto 1vh;animation:beat 1.4s infinite}
+.tl h3{font-size:1.4rem;font-weight:800}.tl span{font-size:.95rem;color:var(--mut);font-weight:700;line-height:1.3;display:block}
+.stats{display:flex;gap:2.4vw;flex-wrap:wrap;justify-content:center;width:min(980px,100%)}
+.stats .card{flex:1;min-width:190px}.stats b{display:block;font-size:clamp(2.8rem,8vw,4.6rem);font-weight:800;color:var(--pink);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;line-height:1}
+.btns{display:flex;gap:20px;margin-top:4vh;flex-wrap:wrap;justify-content:center}
+.btns button{font:800 1.4rem 'Baloo 2';border:5px solid var(--ink);border-radius:99px;padding:4px 30px;box-shadow:0 7px 0 var(--ink);cursor:pointer;transition:transform .2s,box-shadow .1s;background:#fff;color:var(--ink)}
+.btns #yes{background:var(--pink);color:#fff;animation:bob 1.6s infinite}.btns button:active{transform:translateY(6px);box-shadow:none}
+.ui{position:fixed;z-index:5;bottom:max(16px,env(safe-area-inset-bottom,0px));left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px}
+.ui button{background:#fff;border:4px solid var(--ink);color:var(--ink);width:48px;height:48px;border-radius:50%;font:800 1.4rem 'Baloo 2';cursor:pointer;box-shadow:0 5px 0 var(--ink);transition:.15s;line-height:1}
+.ui button:active{transform:translateY(5px);box-shadow:none}.ui button:hover{background:var(--sun)}
+.dots{display:flex;gap:8px}.dots i{width:14px;height:14px;border-radius:9px;background:#fff;border:3px solid var(--ink);transition:.35s;cursor:pointer}.dots i.a{width:38px;background:var(--pink)}
+.pg{position:fixed;top:max(14px,env(safe-area-inset-top,0px));right:16px;z-index:5;font-weight:800;background:#fff;border:3px solid var(--ink);border-radius:99px;padding:0 14px}
+.cr{position:fixed;top:max(14px,env(safe-area-inset-top,0px));left:16px;z-index:5;font-weight:800;font-size:.85rem;background:var(--sun);border:3px solid var(--ink);border-radius:99px;padding:0 14px}
+#start{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(180deg,#ffd9ec,#fff6ec);cursor:pointer;transition:opacity .8s,visibility .8s,transform .8s;text-align:center;padding:20px}
+#start.h{opacity:0;visibility:hidden;transform:scale(1.3)}
+#start svg{width:130px;animation:beat 1.1s infinite}
+#start .btn{background:var(--pink);color:#fff;font-weight:800;font-size:1.4rem;border:5px solid var(--ink);border-radius:99px;padding:6px 34px;box-shadow:0 7px 0 var(--ink);animation:bob 1.6s infinite}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style></head><body>
+<!-- ===== DÒNG CHÈN NHẠC: đổi "nhac.mp3" thành tên file nhạc của bạn ===== -->
+<audio id="bgm" src="nhammat.mp3" loop preload="auto"></audio>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="gh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9cc2"/><stop offset="1" stop-color="#ff3d80"/></linearGradient>
+<symbol id="hrt" viewBox="0 0 100 92"><path d="M50 86C20 62 4 46 4 28 4 14 15 4 28 4c9 0 17 5 22 13C55 9 63 4 72 4c13 0 24 10 24 24 0 18-16 34-46 58z" fill="url(#gh)" stroke="#5a1f3d" stroke-width="6" stroke-linejoin="round"/><path d="M19 28c0-7 4-12 11-14" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/><circle cx="19" cy="42" r="4" fill="#fff"/></symbol>
+<symbol id="shd" viewBox="0 0 100 100"><path d="M50 6 90 20v30c0 22-20 36-40 44C30 86 10 72 10 50V20z" fill="#8fd3ff" stroke="#5a1f3d" stroke-width="6" stroke-linejoin="round"/><use href="#hrt" x="28" y="30" width="44" height="40"/></symbol>
+<symbol id="cht" viewBox="0 0 100 100"><rect x="6" y="12" width="60" height="44" rx="18" fill="#ffd36e" stroke="#5a1f3d" stroke-width="6"/><path d="M20 54 14 72 36 56z" fill="#ffd36e" stroke="#5a1f3d" stroke-width="6" stroke-linejoin="round"/><rect x="36" y="42" width="58" height="42" rx="18" fill="#ff9ec4" stroke="#5a1f3d" stroke-width="6"/><circle cx="52" cy="63" r="4" fill="#5a1f3d"/><circle cx="65" cy="63" r="4" fill="#5a1f3d"/><circle cx="78" cy="63" r="4" fill="#5a1f3d"/></symbol>
+<symbol id="flw" viewBox="0 0 100 100"><g fill="#ff8fb8" stroke="#5a1f3d" stroke-width="5"><circle cx="50" cy="24" r="17"/><circle cx="76" cy="43" r="17"/><circle cx="66" cy="74" r="17"/><circle cx="34" cy="74" r="17"/><circle cx="24" cy="43" r="17"/></g><circle cx="50" cy="52" r="15" fill="#ffd36e" stroke="#5a1f3d" stroke-width="5"/><circle cx="45" cy="50" r="2.5" fill="#5a1f3d"/><circle cx="56" cy="50" r="2.5" fill="#5a1f3d"/></symbol>
+<symbol id="sun" viewBox="0 0 100 100"><g stroke="#5a1f3d" stroke-width="7" stroke-linecap="round"><path d="M50 6v12M50 82v12M6 50h12M82 50h12M19 19l9 9M72 72l9 9M81 19l-9 9M28 72l-9 9"/></g><circle cx="50" cy="50" r="26" fill="#ffd36e" stroke="#5a1f3d" stroke-width="6"/><circle cx="41" cy="46" r="3.5" fill="#5a1f3d"/><circle cx="59" cy="46" r="3.5" fill="#5a1f3d"/><path d="M41 57q9 9 18 0" stroke="#5a1f3d" stroke-width="4" fill="none" stroke-linecap="round"/><ellipse cx="34" cy="55" rx="5" ry="3" fill="#ff8fb8"/><ellipse cx="66" cy="55" rx="5" ry="3" fill="#ff8fb8"/></symbol>
+<symbol id="pen" viewBox="0 0 100 100"><g stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"><path d="M18 74 70 22l16 16-52 52-20 4z" fill="#ffd36e"/><path d="M70 22l8-8c4-4 10-4 14 0l2 2c4 4 4 10 0 14l-8 8z" fill="#ff8fb8"/><path d="M18 74l-4 20 20-4z" fill="#ffe0c2"/></g></symbol>
+<symbol id="env" viewBox="0 0 100 100"><rect x="8" y="24" width="84" height="56" rx="10" fill="#fff" stroke="#5a1f3d" stroke-width="5"/><path d="M10 28 50 58 90 28" fill="#ffd9ec" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><use href="#hrt" x="38" y="46" width="24" height="22"/></symbol>
+<symbol id="cap" viewBox="0 0 100 100"><path d="M50 14 4 38l46 24 46-24z" fill="#5a1f3d" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><path d="M24 52v18c0 8 12 14 26 14s26-6 26-14V52L50 64z" fill="#8fd3ff" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><path d="M88 42v26" stroke="#ffd36e" stroke-width="5" stroke-linecap="round"/><circle cx="88" cy="72" r="6" fill="#ffd36e" stroke="#5a1f3d" stroke-width="3"/></symbol>
+<symbol id="str" viewBox="0 0 100 100"><path d="M50 6 61 37 94 38 68 58 77 90 50 71 23 90 32 58 6 38 39 37z" fill="#ffd36e" stroke="#5a1f3d" stroke-width="6" stroke-linejoin="round"/></symbol>
+<symbol id="boy" viewBox="0 0 120 150"><rect x="26" y="96" width="68" height="48" rx="24" fill="#8fd3ff" stroke="#5a1f3d" stroke-width="5"/><circle cx="60" cy="56" r="42" fill="#ffe0c2" stroke="#5a1f3d" stroke-width="5"/><path d="M18 52C14 14 54 2 78 12c18 6 28 22 24 40-8-14-24-18-40-16-20 2-34 8-44 16z" fill="#6b3a2a" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><g class="blink"><ellipse cx="45" cy="62" rx="5" ry="8" fill="#5a1f3d"/><ellipse cx="75" cy="62" rx="5" ry="8" fill="#5a1f3d"/></g><ellipse cx="34" cy="76" rx="8" ry="5" fill="#ff9ec4"/><ellipse cx="86" cy="76" rx="8" ry="5" fill="#ff9ec4"/><path d="M50 78q10 11 20 0" stroke="#5a1f3d" stroke-width="5" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="girl" viewBox="0 0 120 150"><rect x="26" y="96" width="68" height="48" rx="24" fill="#ffb3d1" stroke="#5a1f3d" stroke-width="5"/><path d="M14 70C4 20 36 4 60 4s56 16 46 66c-2 20-12 34-12 34H26s-10-14-12-34z" fill="#8a4b2f" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><circle cx="60" cy="58" r="40" fill="#ffe0c2" stroke="#5a1f3d" stroke-width="5"/><path d="M20 50c10-30 70-34 80 0-14-12-26-18-40-18S34 38 20 50z" fill="#8a4b2f" stroke="#5a1f3d" stroke-width="5" stroke-linejoin="round"/><g class="blink"><ellipse cx="45" cy="64" rx="5" ry="8" fill="#5a1f3d"/><ellipse cx="75" cy="64" rx="5" ry="8" fill="#5a1f3d"/></g><ellipse cx="34" cy="78" rx="8" ry="5" fill="#ff7aa8"/><ellipse cx="86" cy="78" rx="8" ry="5" fill="#ff7aa8"/><path d="M51 80q9 10 18 0" stroke="#5a1f3d" stroke-width="5" fill="none" stroke-linecap="round"/><use href="#str" x="82" y="4" width="30" height="30"/></symbol>
+</defs></svg>
+<div id="wipe"></div>
+<canvas id="c"></canvas>
+<i class="cl" style="top:10vh;width:150px;height:36px;animation-duration:60s"></i><i class="cl" style="top:62vh;width:110px;height:28px;animation-duration:80s;animation-delay:-30s"></i><i class="cl" style="top:30vh;width:90px;height:24px;animation-duration:100s;animation-delay:-70s"></i>
+<div id="start"><svg class="i"><use href="#env"/></svg><h2 style="margin:0">Thư gửi 2K9 &amp; thí sinh tự do</h2><div class="btn">Mở thư ♪</div></div>
+<div class="cr">© ManhDucPham</div><div class="pg" id="pg"></div>
+<div class="deck" id="deck">
+
+<!-- 0 -->
+<section class="s fx0"><div class="chars rv" style="--i:0"><svg class="i"><use href="#boy"/></svg><svg class="i mid"><use href="#hrt"/></svg><svg class="i"><use href="#girl"/></svg></div><h1 class="rv" style="--i:2;margin-top:2vh">Thư gửi sĩ tử</h1><p class="sub rv" style="--i:3">Vài dòng từ trái tim, dành cho 2K9 và những bạn thí sinh tự do đang cố gắng từng ngày.</p></section>
+
+<!-- 1 -->
+<section class="s fx1"><div class="bubble rv" style="--i:0">“Có những ngày bạn thấy mình <b>chậm</b> hơn người khác. Nhưng bạn vẫn đang <b>bước tiếp</b>, và thế là đủ đáng tự hào rồi.”</div><svg class="i rv" style="--i:2;width:110px;margin-top:7vh;animation-name:none"><use href="#sun" height="110" width="110"/></svg></section>
+
+<!-- 2 -->
+<section class="s fx0"><svg class="i rv" style="--i:0;width:110px;height:100px;margin-bottom:2vh;animation:bob 2s infinite"><use href="#env"/></svg><div class="bubble l rv" style="--i:1"><b>Gửi các em 2K9 thân yêu,</b><br>Các em đang đứng ở một ngã rẽ lớn của cuộc đời, và anh biết đôi khi nó nặng nề lắm. Sách vở chồng chất, bài kiểm tra nối đuôi nhau, người lớn thì hỏi “dự định thế nào rồi”. Nhưng em ơi, em không cần phải hoàn hảo. Em chỉ cần không bỏ rơi chính mình. Mỗi buổi tối em ngồi lại với trang vở, dù mệt, dù buồn ngủ, đều là một lần em chọn tin vào tương lai.<span class="sg">– Một người luôn tin các em</span></div></section>
+
+<!-- 3 -->
+<section class="s fx1"><svg class="i rv" style="--i:0;width:110px;height:100px;margin-bottom:2vh;animation:bob 2s infinite"><use href="#env"/></svg><div class="bubble l rv" style="--i:1"><b>Gửi bạn – thí sinh tự do,</b><br>Bạn đã chọn một con đường mà ít người nhìn thấy: tự học, tự đứng dậy, tự nói với mình “thêm một chút nữa thôi”. Không có tiếng trống khai giảng, không có bạn cùng lớp ngồi bên cạnh, đôi lúc bạn thấy mình lạc lõng giữa mọi người. Nhưng sự dũng cảm quay lại, làm lại, thử lại của bạn là thứ mà không điểm số nào đo được. Bạn thật sự rất đáng nể.<span class="sg">– Từ một người hiểu bạn</span></div></section>
+
+<!-- 4 -->
+<section class="s fx2"><h2 class="rv" style="--i:0">Điều mình muốn <em>nói với bạn</em></h2>
+<div class="grid"><div class="card rv" style="--i:1"><svg class="i"><use href="#hrt"/></svg><h3>Bạn không một mình</h3><span>Ở đâu đó có rất nhiều người cũng đang cố như bạn.</span></div><div class="card rv" style="--i:2"><svg class="i"><use href="#str"/></svg><h3>Bạn đã cố lắm rồi</h3><span>Mỗi ngày bạn vượt qua đều xứng đáng được khen.</span></div><div class="card rv" style="--i:3"><svg class="i"><use href="#flw"/></svg><h3>Mệt thì nghỉ nhé</h3><span>Nghỉ một chút không phải là bỏ cuộc.</span></div><div class="card rv" style="--i:4"><svg class="i"><use href="#sun"/></svg><h3>Bạn xứng đáng</h3><span>Xứng đáng với những điều đẹp đẽ đang đợi.</span></div></div></section>
+
+<!-- 5 -->
+<section class="s fx3"><h2 class="rv" style="--i:0">Gửi những <em>ngày mệt mỏi</em></h2><div class="bubble rv" style="--i:1;font-size:clamp(1.2rem,3vw,1.9rem)">Nếu hôm nay bạn khóc, hãy cứ khóc. Nếu hôm nay bạn chưa học được gì, cũng <b>không sao</b>. Ngày mai vẫn còn đó, và bạn vẫn còn bạn.</div></section>
+
+<!-- 6 -->
+<section class="s fx4"><h2 class="rv" style="--i:0">Dành riêng cho <em>thí sinh tự do</em></h2><svg class="i rv" style="--i:1;width:clamp(110px,20vw,170px);animation-name:none"><use href="#pen" height="150" width="150"/></svg><p class="sub rv" style="--i:2">Tự học có thể cô đơn, nhưng mỗi dòng bạn viết hôm nay đều đang âm thầm đưa bạn tới gần ước mơ hơn. Đừng để ai khiến bạn nghĩ mình đã muộn.</p></section>
+
+<!-- 7 -->
+<section class="s fx1"><h2 class="rv" style="--i:0">Dành riêng cho <em>2K9</em></h2>
+<div class="grid"><div class="card rv" style="--i:1"><svg class="i"><use href="#shd"/></svg><h3>Áp lực không định nghĩa em</h3><span>Em lớn hơn mọi con số trên tờ giấy.</span></div><div class="card rv" style="--i:2"><svg class="i"><use href="#sun"/></svg><h3>Thanh xuân chỉ một lần</h3><span>Nhớ cười thật nhiều giữa những ngày ôn thi.</span></div><div class="card rv" style="--i:3"><svg class="i"><use href="#cap"/></svg><h3>Còn nhiều lối đi</h3><span>Một kỳ thi không khép lại cả tương lai.</span></div></div></section>
+
+<!-- 8 -->
+<section class="s fx3"><h2 class="rv" style="--i:0">Lời nhắn <em>từng lúc</em></h2>
+<div class="tl"><div class="rv" style="--i:1"><svg class="i"><use href="#hrt"/></svg><h3>Lúc nản</h3><span>Hít thở sâu, bạn đã đi xa hơn bạn nghĩ.</span></div><div class="rv" style="--i:2"><svg class="i"><use href="#hrt"/></svg><h3>Lúc so sánh</h3><span>Hoa nở mỗi loài một mùa, đừng vội.</span></div><div class="rv" style="--i:3"><svg class="i"><use href="#hrt"/></svg><h3>Lúc hoang mang</h3><span>Chưa biết đường không có nghĩa là lạc.</span></div><div class="rv" style="--i:4"><svg class="i"><use href="#hrt"/></svg><h3>Ngày bước vào phòng thi</h3><span>Cứ mỉm cười, mình đã sẵn sàng rồi.</span></div></div></section>
+
+<!-- 9 -->
+<section class="s fx4"><h2 class="rv" style="--i:0">Những con số <em>ấm áp</em></h2>
+<div class="stats"><div class="card rv" style="--i:1"><b>1</b><h3>thanh xuân</h3><span>Hãy sống thật trọn.</span></div><div class="card rv" style="--i:2"><b>1000+</b><h3>lần cố gắng</h3><span>Và bạn vẫn còn đứng đây.</span></div><div class="card rv" style="--i:3"><b>∞</b><h3>người tin bạn</h3><span>Nhiều hơn bạn tưởng.</span></div></div></section>
+
+<!-- 10 -->
+<section class="s fx0"><svg class="i rv" style="--i:0;width:110px;height:100px;margin-bottom:2vh;animation:bob 2s infinite"><use href="#env"/></svg><div class="bubble l rv" style="--i:1"><b>Lá thư cuối,</b><br>Dù ngày thi có thế nào, dù kết quả ra sao, bạn vẫn là một người tuyệt vời, vì bạn đã dám cố gắng, dám mơ ước và dám đi tiếp. Mai sau nhìn lại, bạn sẽ cảm ơn chính mình của hôm nay vì đã không bỏ cuộc. Chúng mình luôn ở đây, đứng sau và vỗ tay cho bạn.<span class="sg">– Với tất cả yêu thương</span></div></section>
+
+<!-- 11 -->
+<section class="s fx1"><svg class="i rv" style="--i:0;width:130px;height:130px;animation:bob 2s infinite"><use href="#hrt"/></svg><h2 class="rv" style="--i:1;margin-top:2vh">Hứa với <em>mình</em> nhé?</h2><p class="sub rv" id="ans" style="--i:2;margin-top:0">Hứa là sẽ không bỏ cuộc nha...</p><div class="btns rv" style="--i:3"><button id="yes">Mình hứa!</button><button id="no">Cho mình nghỉ xíu</button></div></section>
+
+<!-- 12 -->
+<section class="s fx0"><div class="chars rv" style="--i:0"><svg class="i"><use href="#girl"/></svg><svg class="i mid"><use href="#hrt"/></svg><svg class="i"><use href="#boy"/></svg></div><h1 class="rv" style="--i:2;margin-top:2vh;font-size:clamp(2.2rem,7.5vw,5rem)">Tụi mình tin bạn!</h1><p class="sub rv" style="--i:3">Chúc 2K9 và các bạn thí sinh tự do thi thật tốt, đỗ thật cao!</p></section>
+</div>
+<div class="ui"><button id="pv">‹</button><div class="dots" id="dots"></div><button id="nx">›</button><button id="mu" aria-label="Âm thanh">♪</button></div>
+<script>
+const S=[...document.querySelectorAll('.s')],N=S.length;let cur=-1,muted=false,A=null,master,started=false;
+const dots=document.getElementById('dots'),pg=document.getElementById('pg');
+S.forEach((_,i)=>{const d=document.createElement('i');d.onclick=()=>go(i);dots.appendChild(d)});
+function go(n){if(n<0||n>=N||n===cur)return;const dir=n>cur?1:-1,nw=S[n];
+nw.classList.remove('off');nw.style.setProperty('--tx',(dir*14)+'vw');
+if(cur>=0){const o=S[cur];o.style.setProperty('--ox',(-dir*14)+'vw');o.classList.remove('on');o.classList.add('off');setTimeout(()=>{o.classList.remove('off');o.style.setProperty('--tx',(-dir*14)+'vw')},900)}
+void nw.offsetWidth;cur=n;nw.classList.add('on');[...dots.children].forEach((d,i)=>d.classList.toggle('a',i===n));pg.textContent=(n+1)+' / '+N;sweep();burst()}
+function sweep(){const w=document.getElementById('wipe');if(!w.animate)return;w.animate([{clipPath:'circle(0% at 50% 55%)',opacity:.8},{clipPath:'circle(80% at 50% 55%)',opacity:.45,offset:.55},{clipPath:'circle(110% at 50% 55%)',opacity:0}],{duration:1300,easing:'cubic-bezier(.22,1,.36,1)'})}
+const CH=[[261.6,329.6,392,523.3],[220,261.6,329.6,440],[174.6,261.6,349.2,440],[196,293.7,392,493.9]];let ci=0;
+function note(f,t,d,type,v){const o=A.createOscillator(),g=A.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+Math.min(.5,d/3));g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.1)}
+function pad(){if(!A)return;const t=A.currentTime,c=CH[ci++%4];c.forEach((f,i)=>{note(f/2,t,4.6,'sine',.07);note(f,t+i*.12,4.4,'triangle',.035)});[0,1,2,3,2,1,3,2].forEach((k,i)=>note(CH[(ci-1)%4][k]*2,t+i*.5,1.2,'triangle',.045))}
+function chime(){return;const t=A.currentTime;[784,988,1175,1568,1976].forEach((f,i)=>note(f,t+i*.07,1,'sine',.07));pop(t)}
+function pop(t){const o=A.createOscillator(),g=A.createGain();o.frequency.setValueAtTime(300,t);o.frequency.exponentialRampToValueAtTime(900,t+.12);g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+.15);o.connect(g);g.connect(master);o.start(t);o.stop(t+.2)}
+function beat(){if(!A||muted||![0,10,11,12].includes(cur))return;const t=A.currentTime;[0,.28].forEach(d=>{const o=A.createOscillator(),g=A.createGain();o.frequency.setValueAtTime(90,t+d);o.frequency.exponentialRampToValueAtTime(40,t+d+.2);g.gain.setValueAtTime(.35,t+d);g.gain.exponentialRampToValueAtTime(.001,t+d+.25);o.connect(g);g.connect(master);o.start(t+d);o.stop(t+d+.3)})}
+function playBgm(){const a=document.getElementById('bgm');a.volume=.8;a.muted=muted;const p=a.play();if(p&&p.catch)p.catch(()=>{addEventListener('pointerdown',()=>a.play(),{once:true})})}
+function initAudio(){try{A=new (window.AudioContext||window.webkitAudioContext)();master=A.createGain();master.gain.value=.9;const f=A.createBiquadFilter();f.type='lowpass';f.frequency.value=2800;master.connect(f);f.connect(A.destination);}catch(e){}playBgm()}
+document.getElementById('mu').onclick=e=>{e.stopPropagation();muted=!muted;e.target.style.opacity=muted?.4:1;if(master)master.gain.value=muted?0:.9;document.getElementById('bgm').muted=muted};
+const cv=document.getElementById('c'),x=cv.getContext('2d');let W,H,P=[];const COL=['#ff8fb8','#ffd36e','#bfe6ff','#ff6fa5','#d9b8ff'];
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener('resize',rs);
+function mk(px,py,b){return{x:px??Math.random()*W,y:py??H+30,s:b?10+Math.random()*16:12+Math.random()*22,vx:(Math.random()-.5)*(b?7:.6),vy:b?-3-Math.random()*6:-.4-Math.random()*1.1,a:b?1:.55+Math.random()*.4,c:COL[Math.random()*5|0],ph:Math.random()*6,b}}
+for(let i=0;i<30;i++)P.push(mk(null,Math.random()*H));
+function burst(){for(let i=0;i<36;i++)P.push(mk(W/2,H/2,true))}
+addEventListener('pointermove',e=>{if(Math.random()<.3)P.push({...mk(e.clientX,e.clientY,true),s:8+Math.random()*8,vx:(Math.random()-.5)*1.5,vy:-1-Math.random()*1.5})});
+function heart(px,py,s){x.beginPath();x.moveTo(px,py+s*.3);x.bezierCurveTo(px,py-s*.2,px-s*.6,py-s*.2,px-s*.6,py+s*.15);x.bezierCurveTo(px-s*.6,py+s*.55,px,py+s*.7,px,py+s);x.bezierCurveTo(px,py+s*.7,px+s*.6,py+s*.55,px+s*.6,py+s*.15);x.bezierCurveTo(px+s*.6,py-s*.2,px,py-s*.2,px,py+s*.3);x.fill();x.stroke()}
+x.lineWidth=3;x.strokeStyle='#5a1f3d';
+function loop(){x.clearRect(0,0,W,H);for(let i=P.length-1;i>=0;i--){const p=P[i];p.x+=p.vx+Math.sin(p.ph+=.03)*.5;p.y+=p.vy;if(p.b){p.vy+=.15;p.a-=.014}
+if(p.y<-50||p.a<=0){if(p.b){P.splice(i,1);continue}P[i]=mk();continue}
+x.globalAlpha=Math.max(0,p.a);x.fillStyle=p.c;heart(p.x,p.y,p.s)}
+x.globalAlpha=1;requestAnimationFrame(loop)}loop();
+const nx=()=>go(cur+1),pv=()=>go(cur-1);
+document.getElementById('nx').onclick=nx;document.getElementById('pv').onclick=pv;
+addEventListener('keydown',e=>{if(!started)return;if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))nx();if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))pv()});
+let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)d<0?nx():pv()});
+document.getElementById('deck').onclick=e=>{if(e.target.closest('.card,button,.bubble.l'))return;nx()};
+const no=document.getElementById('no');const run=()=>{no.style.transform=`translate(${(Math.random()-.5)*Math.min(300,innerWidth*.6)}px,${(Math.random()-.5)*160}px) rotate(${(Math.random()-.5)*30}deg)`};
+no.onmouseenter=run;no.ontouchstart=e=>{e.preventDefault();run()};no.onclick=run;
+document.getElementById('yes').onclick=()=>{document.getElementById('ans').textContent='Cảm ơn bạn đã không bỏ cuộc!';no.style.display='none';for(let i=0;i<5;i++)setTimeout(()=>{burst()},i*250)};
+document.getElementById('start').onclick=function(){started=true;initAudio();this.classList.add('h');setTimeout(()=>go(0),400)};
+</script></body></html>
